@@ -2,7 +2,7 @@
   <div>
     <div class="navbar1">
       <div class="logo">
-        <a href="/"><img src="..//assets/Logo_Fit-Time__Avec_le_cercle.png" alt="mon logo"></a>
+        <a href="/pageAccueil2"><img src="..//assets/Logo_Fit-Time__Avec_le_cercle.png" alt="mon logo"></a>
       </div>
     <div class="ensembleDroite">
 
@@ -20,13 +20,13 @@
           <li><a href="#">Cours en Ligne</a></li>
           </ul></li>
 
-          <li><a class="dessus" href="#">Formule d'Essaie</a></li>
+          <li><a class="dessus" href="/coursdomicile">Mon cours à domicile</a></li>
+          <li><a class="dessus" href="/trouverpartenaire">Trouver un partenaire </a></li>
           <li><a class="dessus" href="/trouverMaSalle">Trouver ma Salle</a></li>
+          <li><a class="dessus" href="/espace/:id">Mon espace </a></li>
       </ul>
 </div>
 <div class="btn-">
-  <a href="/abonnement">
-      <button class="nav1">Je m'abonne</button></a>
       <a href="/login">
       <i class="far fa-user" id="user1"></i>
       </a>
@@ -130,26 +130,6 @@ export default {
     float: none;
     width: 100%;
     text-align: center;
-}
-
-.navbar1 .nav1{
-      background: none;
-    border: 2px solid #f7941d;
-    height: 27px;
-    width: 110px;
-    border-radius: 30px;
-    outline: none;
-    cursor: pointer;
-}
-.navbar1 .nav1:hover{
-      background: #f7941d;
-    border: 2px solid #f7941d;
-    height: 27px;
-    width: 110px;
-    border-radius: 30px;
-    outline: none;
-    cursor: pointer;
-    color: white;
 }
 
 .navbar1 #user1{
@@ -303,26 +283,6 @@ export default {
     float: none;
     width: 100%;
     text-align: center;
-}
-
-.navbar1 .nav1{
-      background: none;
-    border: 2px solid #f7941d;
-    height: 27px;
-    width: 110px;
-    border-radius: 30px;
-    outline: none;
-    cursor: pointer;
-}
-.navbar1 .nav1:hover{
-      background: #f7941d;
-    border: 2px solid #f7941d;
-    height: 27px;
-    width: 110px;
-    border-radius: 30px;
-    outline: none;
-    cursor: pointer;
-    color: white;
 }
 
 .navbar1 #user1{

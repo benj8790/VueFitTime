@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mySection1">
 
     
       <div class="aPropos">
@@ -9,6 +9,7 @@ Ce n’est pas tout vous pourrez également « commander » votre coach à domic
 Trouver également un partenaire d’entrainement avec notre système d’entre aide avec les autres utilisateurs de nos salles.
 </p>
       </div>
+      <div class="paralax"></div>
   </div>
 </template>
 
@@ -26,7 +27,9 @@ export default {
 </script>
 
 <style>
-
+.mySection1{
+  width: 100%;
+}
 .aPropos{
     display: flex;
     flex-direction: column;
@@ -47,7 +50,14 @@ export default {
     font-size: 20px
 }
 
-
+.paralax{
+    background-image: url(../../assets/slide1.jpg);
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
 
 
 

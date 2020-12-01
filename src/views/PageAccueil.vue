@@ -4,6 +4,8 @@
         <myHeader/>
         <mySetion1/>
         <mySetion2 :abonnements="abonnements"/>
+        <mySetion3/>
+        <myFooter/>
 
     </div>
 </template>
@@ -13,6 +15,8 @@ import myNavbar from '../components/myNavbar'
 import myHeader from '../components/pageAccueil1/myHeader'
 import mySetion1 from '../components/pageAccueil1/mySection1'
 import mySetion2 from '../components/pageAccueil1/mySection2'
+import mySetion3 from '../components/pageAccueil1/mySection3'
+import myFooter from '../components/myFooter'
 
 export default {
     name:"pageAccueil",
@@ -38,6 +42,8 @@ created () {
         myHeader,
         mySetion1,
         mySetion2,
+        mySetion3,
+        myFooter,
     }
 }
 </script>
