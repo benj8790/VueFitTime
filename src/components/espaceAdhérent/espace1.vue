@@ -3,10 +3,37 @@
     <div class="ensemble">
         <div class="menu">
             <div class="hautmenu">
-
                 <div class="circle">
                 <i class="far fa-times-circle"></i>
                 </div>
+            <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+      <div class="ensembleimageprofil">
+        <div class="centrer">
+
+          <div class="imageprofil">
+
+             <label for="file" class="file">
+
+          <img v-if="adherents[0].Image !== ''" :img-src= "require(`../../../../NodeFitTime/public/${adherents[0].Image}`)" class="avatar img-fluid" alt="avatar"/>
+           <img v-else src="../../../../NodeFitTime/public/1fdb7bf257b90ba809da046b5f74afe9.jpg" class="avatar img-fluid" alt="avatar" />
+            </label> 
+          </div>
+
+          <div class="file-upload">
+            <label for="file" class="file">choisir une image</label>
+            <input type="file" id="file" @change="onFileChange" />
+
+
+               <div v-if="progress" class="progess-bar" :style="{ width: progress }">
+                  {{ progress }}
+               </div>
+               <button @click="onUploadFile" class="upload-button" :disabled="!this.selectedFile">valider</button>
+         </div>
+         
+         
+        </div>
+      </div>
+
 
                 <div class="user">
                 <a href="/">Déconnexion</a>
@@ -33,17 +60,6 @@
 
 
       <div class="conteneur" v-for="adherent in adherents" :key="adherent.id">
-            <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
-   <!--    <div class="col-md-3">
-        <div>
-          <img v-if="adherent.image !== undefined" :src="adherent.image" class="avatar img-fluid" alt="avatar"/>
-          <img v-else :src="pic" class="avatar img-fluid" alt="avatar" />
-          <h6>Upload a different photo ...</h6> -->
-                      <!-- @ c'est on -->
-<!-- 
-          <input type="file" accept="image/jpeg" @change="uploadImage" />
-        </div>
-      </div> -->
     <div class="titrehaut">
 
      <h1>{{adherent.Nom}} - {{adherent.Prenom}}</h1>
@@ -110,17 +126,16 @@
 
 
 
-
 </div>
 
 </template>
 
 <script>
-/* import VueJwtDecode from "vue-jwt-decode";
- */
+ import VueJwtDecode from "vue-jwt-decode";
+ 
 
 export default {
-    name: "espaceprofil",
+    name: "espace",
     props: ["adherents"],
 
       data() {
@@ -128,10 +143,12 @@ export default {
       adherent: {},
       message: null,
       pic: null,
+        selectedFile: "",
+      progress: 0,
     };
   },
   
-/*    created: function() {
+    created: function() {
     if (localStorage.getItem("token") === null) {
       this.$router.push({ name: "Login" });
     } else {
@@ -139,18 +156,36 @@ export default {
       console.log(this.adherent);
     }
   }, 
- */  
+ 
 
 methods: {
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (e) => {
-        this.pic = e.target.result;
-        this.adherent.image = e.target.result;
-      };
+    onFileChange(e) {
+      const selectedFile = e.target.files[0];
+      this.selectedFile = selectedFile;
+      this.progress = 0;
     },
+    onUploadFile() {
+      const formData = new FormData();
+      formData.append("file", this.selectedFile); // appending file
+
+      this.axios
+        .post("http://localhost:3000/upload", formData, {
+          onUploadProgress: (ProgressEvent) => {
+            let progress =
+              Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100) +
+              "%";
+            this.progress = progress;
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.adherent.image = res.data.name;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    
     update: function() {
       this.axios
         .put(
@@ -159,7 +194,7 @@ methods: {
         )
         .then((res) => {
           console.log(res);
-          if (res.status === 200) {
+          if (res.data.token ) {
             localStorage.setItem("token", JSON.stringify(res.data.token));
             this.message = "votre profil est a jour";
           } else {
@@ -325,6 +360,49 @@ methods: {
     outline: none;
 }
 
+
+.espace1 .menu .hautmenu .ensembleimageprofil .imageprofil{
+    border-radius: 500px;
+    height: 100%;
+    width: 100%;
+    max-height: 100px;
+    max-width: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.espace1 .menu .hautmenu .ensembleimageprofil .centrer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+
+.espace1 .menu .hautmenu .ensembleimageprofil .centrer .file-upload{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.espace1 .menu .hautmenu .ensembleimageprofil .centrer .file{
+    cursor: pointer;
+
+}
+
+.espace1 .menu .hautmenu .file-upload button{
+    background-color: #1ed760;
+    border: none;
+    padding: 2px 10px;
+    font-family: roboto;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
 
 
 

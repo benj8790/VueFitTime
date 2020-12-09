@@ -33,6 +33,12 @@ export default {
     padding: 20px 0px;
 }
 
+.mySection22 h1{
+    color: #001a6d;
+    text-align: center;
+    font-family: "roboto";
+}
+
 .mySection22 p{
     width: 80%;
     text-align: center;
@@ -41,7 +47,13 @@ export default {
 
 .mySection22 .btnsec button{
     background-color: #f7941d;
-    
+    border: none;
+    border-radius: 10px;
+    margin: 0px 20px;
+    color: white;
+    height: 30px;
+    padding: 5px 10px;
+    font-family: "roboto";
 }
 
 

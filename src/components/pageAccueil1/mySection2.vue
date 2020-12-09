@@ -18,8 +18,8 @@
         <div class="card-body">
              <h5 class="card-title2">{{abonnement.Nom}}</h5>
              <p class="partir">A partir de</p>
-            <p class="card-text1" v-show="prixmothe"   >{{abonnement.Tarif.Tarif_de_Base}}</p>
-            <p class="card-text1" v-show="prixyear">{{abonnement.Tarif.Tarif_Libre_Acces}}</p>
+            <p class="card-text1" v-show="prixUn"   >{{abonnement.Tarif.Tarif_de_Base}}</p>
+            <p class="card-text1" v-show="prixDeux">{{abonnement.Tarif.Tarif_Libre_Acces}}</p>
             <p class="card-text3">{{abonnement.Condition}}</p>
             <i class="fas fa-gift"><p class="card-text4">{{abonnement.Seance_Offerte}}</p></i>
           <a href="/abonnement" class="btn-jeAbonne"> <button>Je m'abonne</button> </a>
@@ -40,15 +40,15 @@ export default {
 
   data(){
     return{
-        prixmothe: true,
-        prixyear: false,
+        prixUn: true,
+        prixDeux: false,
     }
 },
 
 
    methods:{
        
-        changeprix: function(){ this.prixmothe = false; this.prixyear = true }
+        changeprix: function(){ this.prixUn = false; this.prixDeux = true }
     },
   
     
@@ -69,6 +69,7 @@ export default {
       text-align: center;
     padding-top: 18px;
     font-size: 55px;
+    margin: 0 auto;
 } 
 
 .card-body{

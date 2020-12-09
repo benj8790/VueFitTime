@@ -72,14 +72,14 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.token) {
-            var user = VueJwtDecode.decode(res.data.token);
+            var adherent = VueJwtDecode.decode(res.data.token);
             localStorage.setItem("token", res.data.token);
 
-            this.$router.push({ name: "Espace", params: { id: user.Id } });
+            this.$router.push({ name: "pageAccueil2", params: { id: adherent.Id } });
             window.location.reload();
           } else {
             this.$router.push({
-              name: "pageAccueil2",
+              name: "pageAccueil",
               params: { msg: "non connecté" },
             });
           }
@@ -141,6 +141,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 30px;
 }
 
 .login .contenu h1 {

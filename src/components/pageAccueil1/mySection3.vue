@@ -26,7 +26,7 @@
         <h1 class="clubOuverture">CLUBS EN PRé-OUVERTURE</h1>
         <div class="marquee-rtl">
         <!-- le contenu défilant -->
-        <div><p>QUIMPER</p> <p>DOVILLE</p> <p>MONTPELLIER</p></div>
+        <div><p>QUIMPER</p> <p>DEAUVILLE</p> <p>MONTPELLIER</p></div>
         </div>
   </div>
       <p class="descTrouvSalle">Trouver la salle la plus proche de chez vous en tapant le nom de votre ville <br>

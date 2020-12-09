@@ -11,7 +11,9 @@ import abonnement from "../views/PageAbonnement.vue"
 import espace from "../views/PageEspaceAdhérent.vue"
 import trouverPartenaire from "../views/PageTrouverPartenaire.vue"
 import ajouterPoste from "../views/PageAjouterPoste.vue"
+import reponsePoste from "../views/PageReponsePoste.vue"
 import coursdomicile from "../views/PageCoursDomicile.vue"
+import reservationEssaie from "../views/PageReservationFormuleEssaie.vue"
 
 
 
@@ -24,7 +26,7 @@ const routes = [{
     },
 
     {
-        path: '/pageAccueil2',
+        path: '/pageAccueil2/:id',
         name: 'pageAccueil2',
         component: pageAccueil2
     },
@@ -70,9 +72,19 @@ const routes = [{
         component: ajouterPoste
     },
     {
+        path: '/reponsePoste',
+        name: 'reponsePoste',
+        component: reponsePoste
+    },
+    {
         path: '/coursdomicile',
         name: 'coursdomicile',
         component: coursdomicile
+    },
+    {
+        path: '/reservationEssaie',
+        name: 'reservationEssaie',
+        component: reservationEssaie
     },
     {
         path: '/espace/:id',

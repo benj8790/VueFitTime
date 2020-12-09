@@ -4,7 +4,7 @@
     <div class="ensemble">
         
         <div class="fleche">
-            <a href=""><i class="fas fa-arrow-left"></i></a>
+            <a href="/trouverpartenaire"><i class="fas fa-arrow-left"></i></a>
         </div>
 
         <div class="contenu">
@@ -72,9 +72,16 @@
                 </div>
 
                 <div class="selectJour">
+                    <h4>Fréquence d'entrainement</h4>
                     <input type="checkbox" id="lundi" value="lundi">
                     <label  class="lundiBefor" for="lundi">LUN</label>
                     <label  class="lundiAfter" for="lundi">LUN</label>
+                </div>
+
+                <div class="lesattentes">
+                    <input class="text" type="text" placeholder="Vos attentes">
+
+                    <input class="btn" type="submit" name="Poster" placeholder="Poster" value="Poster">
                 </div>
 
             </form>
@@ -165,7 +172,8 @@ export default {
 .ajouterposte .ensemble .contenu form .inputformhoraire .titreselect .horaire p{
     margin: 0 auto !important;
     display: flex;
-    align-items: center;}
+    align-items: center;
+    }
 
 .ajouterposte .ensemble .contenu form .inputformhoraire .titreselect .horaire select{
     margin: 0px 10px;
@@ -188,6 +196,37 @@ export default {
     color: gray;
     background-color: orangered;
     }
+
+/* ----------------------------------------- */
+
+.ajouterposte .ensemble .contenu form .lesattentes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ajouterposte .ensemble .contenu form .lesattentes .text {
+    width: 80%;
+    margin: 10px 0px 35px 0px;
+    padding-bottom: 200px;
+    padding-top: 10px;
+}
+
+.ajouterposte .ensemble .contenu form .lesattentes .text::placeholder {
+    font-size: 18px;
+}
+
+.ajouterposte .ensemble .contenu form .lesattentes input[type= submit] {
+    padding: 0px 30px;
+    color: white;
+    font-family: "roboto";
+    background-color: #f7941d;
+    font-size: 24px;
+    border-radius: 0px;
+    margin-bottom: 25px;
+}
+
 
 
 

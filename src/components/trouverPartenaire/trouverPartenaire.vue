@@ -15,21 +15,35 @@
         </div>
         </form>
         <div class="ajout">
-            <button>Ajouter un poste</button>
+           <a href="/ajouterPoste"> <button>Ajouter un poste</button> </a> 
         </div>
       </div>
 
-      </div>
+      <div class="ensemblecarte">
 
-      <div class="card" v-for="annonce in annonces" :key="annonce.id">
-        <div class="card-body">
+      <div class="carte" v-for="annonce in annonces" :key="annonce.id">
+        <div class="cartecorps"> 
 
-            <p class="card-text"> Ville: {{annonce.Ville}}</p>
+          <h3>Olivia 29 ans</h3>
+
+          <div class="premiereligne">
+            <p><i class="fas fa-dumbbell"></i> Partenaire d'entrainement pour le <span> {{annonce.disponibilite}}</span> </p>
+            <p class="card-text"> <i class="fas fa-map-marker-alt"></i> {{annonce.Ville}} </p>
+            <p> <i class="far fa-clock"></i> {{annonce.Horaire}}</p>
+          </div>
+
+          <div class="deuxiemeligne">
+            <p> {{annonce.Vos_Attente}} </p>
+            <button>Répondre</button>
+          </div>
 
         </div>
       </div>
+      </div>
 
 
+
+    </div>
 
 
 
@@ -60,6 +74,10 @@ export default {
 
 
 } 
+
+
+
+
 </script>
 
 <style>
@@ -115,6 +133,7 @@ export default {
 .trouverpartenaire .ensemble .recherche .ajout{
     width: 50%;
     transform: translateX(-57px);
+    margin-bottom: 30px;
 }
 
 .trouverpartenaire .ensemble .recherche .ajout button{
@@ -124,6 +143,57 @@ export default {
     height: 30px;
     background-color: #f7941d;
     padding: 5px;
+}
+
+/* ---------------------------------------- */
+
+.trouverpartenaire .carte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.trouverpartenaire .carte .cartecorps {
+    box-shadow: 0 0 0.5em gray;
+    width: 80%;
+    background-color: white;
+    margin: 20px 0px;
+}
+
+.trouverpartenaire .carte .cartecorps .premiereligne{
+    display: flex;
+}
+
+.trouverpartenaire .carte .cartecorps .premiereligne i{
+    color: #f7941d;
+}
+
+.trouverpartenaire .carte .cartecorps .premiereligne p span{
+    color: white;
+    background-color: #f7941d;
+    font-family: "roboto";
+    padding: 2px;
+}
+
+.trouverpartenaire .carte .cartecorps .premiereligne p{
+    margin: 0px 10px;
+}
+
+.trouverpartenaire .carte .cartecorps .deuxiemeligne p{
+    margin: 10px 0px 0px 10px;
+    width: 50%;
+}
+
+.trouverpartenaire .carte .cartecorps .deuxiemeligne button{
+    border: none;
+    color: white;
+    background-color: #f7941d;
+    font-family: "roboto";
+    margin: 15px 10px;
+    border-radius: 50px;
+    padding: 2px 10px;
 }
 
 

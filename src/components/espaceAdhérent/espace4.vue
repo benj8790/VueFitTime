@@ -101,11 +101,11 @@ export default {
     };
   },
    
-   computed: {
+/*    computed: {
     groupedDays() {
       return groupBy(this.conferenceDays, day => day.date.toDateString());
     }
-  }
+  } */
   
  
 

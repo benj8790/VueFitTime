@@ -1,7 +1,7 @@
 <template>
     <div>
         <myNavbar2/>
-        <trouverpartenaire :annonces="annonce"/>
+        <trouverpartenaire :annonces="annonces"/>
         <myFooter/>
 
     </div>
@@ -36,7 +36,7 @@ data(){
         }
     }
   },
- 
+  
    
     
 created () {

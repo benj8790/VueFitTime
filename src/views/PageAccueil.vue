@@ -35,7 +35,7 @@ created () {
           alert(err);
       })
   },
-
+ 
 
     components:{
         myNavbar,

@@ -17,7 +17,7 @@
             <router-link :to="`/detailsalle_de_sport/${salle_de_sport.Id}`">
           <a href="#" class="btn btn-candidaté"> Détail</a>
         </router-link>     
-        </div>
+        </div> 
     </div>
   </div>
     </div>

@@ -31,39 +31,23 @@
                     <select name="select" required>
                     <option value=""  disabled selected hidden> </option>
 
-                     <option value="Janvier">Janvier</option>
-                     <option value="Février">Février</option>
-                     <option value="Mars">Mars</option>
-                     <option value="Avril">Avril</option>
-                     <option value="Mai">Mai</option>
-                     <option value="Juin">Juin</option>
-                     <option value="Juillet">Juillet</option>
-                     <option value="Août">Août</option>
-                     <option value="Septembre">Septembre</option>
-                     <option value="Octobre">Octobre</option>
-                     <option value="Novembre">Novembre</option>
-                     <option value="Décembre">Décembre</option>
+                     <option value="Corentin">Corentin</option>
+                     <option value="Julie">Julie</option>
+                     <option value="Marc">Mars</option>
+                     <option value="Dorothée">Dorothée</option>
                     </select>
                     </div>
 
                     <div class="titreselect">
-                    <h4>Coach</h4>
+                    <h4>Type de cours</h4>
 
                     <select name="select" required>
                     <option value=""  disabled selected hidden> </option>
 
-                     <option value="Janvier">Janvier</option>
-                     <option value="Février">Février</option>
-                     <option value="Mars">Mars</option>
-                     <option value="Avril">Avril</option>
-                     <option value="Mai">Mai</option>
-                     <option value="Juin">Juin</option>
-                     <option value="Juillet">Juillet</option>
-                     <option value="Août">Août</option>
-                     <option value="Septembre">Septembre</option>
-                     <option value="Octobre">Octobre</option>
-                     <option value="Novembre">Novembre</option>
-                     <option value="Décembre">Décembre</option>
+                     <option value="Remise en forme">Remise en forme</option>
+                     <option value="Endurance">Endurance</option>
+                     <option value="Force">Force</option>
+                     <option value="Personnalisé">Personnalisé</option>
                     </select>
                     </div>
 
@@ -72,7 +56,7 @@
           <div class="inputform">
 
                     <div class="titreselect">
-                    <h4>Coach</h4>
+                    <h4>Date</h4>
 
                     <select name="select" required>
                     <option value=""  disabled selected hidden> </option>
@@ -93,7 +77,7 @@
                     </div>
 
                     <div class="titreselect">
-                    <h4>Coach</h4>
+                    <h4>Horaire</h4>
 
                     <select name="select" required>
                     <option value=""  disabled selected hidden> </option>
