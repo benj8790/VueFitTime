@@ -1,10 +1,17 @@
 <template>
   <div class="espace1">
+
     <div class="ensemble">
+
       <div class="menu">
+
         <div class="hautmenu">
+
           <div class="circle">
+            <a :href="`/pageAccueil2/${adherent.Id}`">
             <i class="far fa-times-circle"></i>
+            </a>
+            
           </div>
           <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
           <div class="ensembleimageprofil">
@@ -28,22 +35,20 @@
 
               <div class="file-upload">
                 <label for="file" class="file">choisir une image</label>
-                <input type="file" id="file" @change="onFileChange" />
 
-                <div
-                  v-if="progress"
-                  class="progess-bar"
-                  :style="{ width: progress }"
-                >
+
+                <input type="file" class="none" id="file" @change="onFileChange" />
+
+                <div class="valider">
+
+                <div v-if="progress" class="progess-bar" :style="{ width: progress }">
                   {{ progress }}
                 </div>
-                <button
-                  @click="onUploadFile"
-                  class="upload-button"
-                  :disabled="!this.selectedFile"
-                >
+                <button @click="onUploadFile" class="upload-button" :disabled="!this.selectedFile" >
                   valider
                 </button>
+                </div>
+
               </div>
             </div>
           </div>
@@ -81,13 +86,7 @@
                   id="email"
                   v-model="adherent.Email"
                 />
-                <input
-                  class="form-control"
-                  type="text"
-                  name="tel"
-                  id="tel"
-                  v-model="adherent.Tel"
-                />
+                <input class="form-control" type="text" name="tel" id="tel" v-model="adherent.Tel"/>
                 <input
                   class="form-control"
                   type="text"
@@ -115,6 +114,7 @@
                   name="password"
                   id="password"
                   v-model="adherent.Password"
+                  required
                 />
               </div>
 
@@ -137,7 +137,7 @@
       </div>
 
       <div class="logo">
-        <img src="../../assets/Logo_Fit-Time__Avec_le_cercle.png" alt="" />
+        <img src="../../assets/Logo_Fit-Time__Avec_le_cercle.png" alt=""/>
       </div>
     </div>
 
@@ -217,6 +217,7 @@ export default {
           if (res.data.token) {
             localStorage.setItem("token", JSON.stringify(res.data.token));
             this.adherent = VueJwtDecode.decode(res.data.token);
+            window.location.reload();
             console.log(this.adherent);
             this.message = "votre profil est a jour";
           } else {
@@ -283,6 +284,10 @@ export default {
   justify-content: flex-start;
   width: 100%;
   font-size: 20px;
+  color: white;
+}
+
+.espace1 .menu .hautmenu .circle a{
   color: white;
   cursor: pointer;
 }
@@ -376,6 +381,8 @@ export default {
   outline: none;
 }
 
+/* ----------------image profil------------------------ */
+
 .espace1 .menu .hautmenu .ensembleimageprofil .imageprofil {
   border-radius: 500px;
   height: 100%;
@@ -403,6 +410,11 @@ export default {
 
 .espace1 .menu .hautmenu .ensembleimageprofil .centrer .file {
   cursor: pointer;
+  max-width: 200px !important;
+}
+
+.espace1 .menu .hautmenu .ensembleimageprofil .centrer .file img{
+  max-width: 200px !important;
 }
 
 .espace1 .menu .hautmenu .file-upload button {
@@ -413,5 +425,19 @@ export default {
   border-radius: 3px;
   margin-bottom: 15px;
   cursor: pointer;
+}
+
+.espace1 .menu .hautmenu .file-upload .none {
+  display: none;
+}
+
+.espace1 .menu .hautmenu .file-upload .valider {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+.espace1 .menu .hautmenu .file-upload .progess-bar {
+    width: auto !important;
 }
 </style>

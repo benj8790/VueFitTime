@@ -4,17 +4,37 @@
     <div class="ensemble">
         
         <div class="fleche">
-            <a href="/trouverpartenaire"><i class="fas fa-arrow-left"></i></a>
+            <a :href="`/trouverpartenaire/${id}`"><i class="fas fa-arrow-left"></i></a>
         </div>
-
+ 
         <div class="contenu">
 
-            <h3>Olivia tiabella 22ans</h3>
-            <form action="">
+          <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+          <div class="ensembleimageprofil">
+            <div class="centrer">
+              <div class="imageprofil">
+                  <img
+                    v-if="adherent.Image !== ''"
+                    :src="urlImg + adherents[0].Image"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
+                    src="../../../../Fit-Time/public/1fdb7bf257b90ba809da046b5f74afe9.jpg"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                
+              </div>
+            </div>
+          </div> 
+            <h3>{{adherent.Prenom}}</h3>
+            <form action=""  @submit.prevent="annonce">
             
                 <div class="inputform">
-                     <input class="form-control" type="text" name="Ville" id="Ville" placeholder="Ville"/>
-                     <input class="form-control" type="email" name="email" id="email" placeholder="Adresse email"/>
+                     <input class="form-control" type="text" name="Ville" id="Ville" placeholder="Ville" v-model=" ville_annonce"/>
+                     <input class="form-control" type="email" name="email" id="email" placeholder="Adresse email"  v-model=" email_annonce"/>
                 </div>
 
                     
@@ -72,14 +92,49 @@
                 </div>
 
                 <div class="selectJour">
+
+                    <div class="global">
+
+                    
                     <h4>Fréquence d'entrainement</h4>
-                    <input type="checkbox" id="lundi" value="lundi">
-                    <label  class="lundiBefor" for="lundi">LUN</label>
-                    <label  class="lundiAfter" for="lundi">LUN</label>
+    
+                    <div class="btn-group btn-group-toggle d-flex flex-column flex-md-row" data-toggle="buttons">
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="lundi"> Lun
+                         </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="mardi"> Mar
+                        </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="mercredi"> Mer
+                        </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="jeudi"> Jeu
+                        </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="vendredi"> Ven
+                        </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="samedi"> Sam
+                        </label>
+
+                         <label class="btn btn-primary">
+                            <input type="checkbox" autocomplete="off" value="dimanche"> Dim
+                        </label>
+
+                    </div>
+                    </div>
+
                 </div>
 
                 <div class="lesattentes">
-                    <input class="text" type="text" placeholder="Vos attentes">
+                    <input class="text" type="text" placeholder="Vos attentes"  v-model=" vos_Attente_annonce">
 
                     <input class="btn" type="submit" name="Poster" placeholder="Poster" value="Poster">
                 </div>
@@ -91,7 +146,66 @@
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
+
 export default {
+    name: "ajoutposte",
+    props: ["adherents"],
+
+    data() {
+    return {
+      adherent: {},
+      urlImg: "http://localhost:3000/static/",
+      disponibilite_annonce: "",
+      prenom_annonce: "",
+      horaire_annonce: "",
+      vos_Attente_annonce: "",
+      ville_annonce: "",
+      email_annonce: "",
+      adherent_id_annonce: "",
+      id: this.$route.params.id
+
+ 
+    };
+  },
+
+    methods:{
+   
+        annonce: function (){
+            this.axios.post("http://localhost:3000/annonce/ajouter",{
+                disponibilite: this.disponibilite_annonce,
+                Prenom: this.prenom_annonce,
+                Horaire: this.horaire_annonce,
+                Vos_Attente: this.vos_Attente_annonce,
+                Ville: this.ville_annonce,
+                Email:this.email_annonce,
+                adherent_id:this.adherent_id_annonce,
+            })
+            .then(res =>{
+
+                console.log(res);
+                alert("ok");
+                if(res.data.token){
+                    var adherent = VueJwtDecode.decode(res.data.token);
+                    localStorage.setItem("token",res.data.token)
+                    this.$router.push({name: "trouverPartenaire", params: { id: adherent.Id }})
+                    window.location.reload();
+                }
+                else{
+                    this.$router.push({name: "ajoutposte", params: {msg: "pas enregistré"} })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        },
+    },
+
+
+      created: function() {
+    this.adherent = this.adherents[0];
+      },
 
 }
 </script>
@@ -181,20 +295,41 @@ export default {
     }
 
 
-/* -------------------------------------- */
+/* ------------------------------------------------------------------------- */
 
-.ajouterposte .ensemble .contenu form .selectJour .lundiBefor{
-    cursor: pointer;
-    border: 1px solid gray;
-    color: gray;
-    background-color: white;
+.ajouterposte .ensemble .contenu form .selectJour {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0px;
     }
 
-.ajouterposte .ensemble .contenu form .selectJour .lundiAfter{
-    cursor: pointer;
+.ajouterposte .ensemble .contenu form .selectJour .global{
+    width: 80%;
+    }
+
+.ajouterposte .ensemble .contenu form .selectJour .global .btn-group{
+    display: flex !important;
+    flex-wrap: wrap;
+    }
+
+.ajouterposte .ensemble .contenu form .selectJour .global label{
+    margin:0px 5px;
+    background-color: white;
     border: 1px solid gray;
+    border-radius: 0px;
     color: gray;
-    background-color: orangered;
+    outline: none;
+    font-family: "roboto";
+    }
+
+.ajouterposte .ensemble .contenu form .selectJour .global .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    margin:0px 5px;
+    background-color: #f7941d !important;
+    border: 1px solid #f7941d;
+    border-radius: 0px;
+    color: white;
+    outline: none;
+    font-family: "roboto";
     }
 
 /* ----------------------------------------- */
@@ -227,7 +362,37 @@ export default {
     margin-bottom: 25px;
 }
 
+/* ----------------image profil------------------------ */
 
+.ajouterposte .contenu .ensembleimageprofil .imageprofil {
+  border-radius: 500px;
+  height: 100%;
+  width: 100%;
+  max-height: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.ajouterposte .contenu .ensembleimageprofil .centrer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.ajouterposte .contenu .ensembleimageprofil .centrer .file-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ajouterposte .contenu .ensembleimageprofil .centrer img{
+  max-width: 280px !important;
+}
 
 
 </style>

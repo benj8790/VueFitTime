@@ -1,15 +1,39 @@
 <template>
 <div class="espace2">
     <div class="ensemble">
+ 
         <div class="menu">
+
             <div class="hautmenu">
 
-                <div class="circle">
-                <i class="far fa-times-circle"></i>
-                </div>
-
+            <div class="circle">
+                    <a :href="`/pageAccueil2/${adherent.Id}`">
+                    <i class="far fa-times-circle"></i>
+                    </a>
+            </div>
+ 
+          <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+          <div class="ensembleimageprofil">
+            <div class="centrer">
+              <div class="imageprofil">
+                  <img
+                    v-if="adherent.Image !== ''"
+                    :src="urlImg + adherents[0].Image"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
+                    src="../../../../Fit-Time/public/1fdb7bf257b90ba809da046b5f74afe9.jpg"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                
+              </div>
+            </div>
+          </div>
                 <div class="user">
-                <a href="/">Déconnexion</a>
+                <a href="/" @click="logout">Déconnexion</a>
 
                 </div>
             </div>
@@ -22,8 +46,12 @@
         <li v-on:click="$emit('espacequatre', false)">Mon programme</li>
             </ul>
     </div>
+
+
+
+
         <div class="logo">
-        <img src="../../assets/Logo_Fit-Time__Avec_le_cercle.png" alt="">
+        <img src="../../assets/Logo_Fit-Time__Avec_le_cercle.png" alt=""/>
         </div>
     </div>
 
@@ -38,7 +66,28 @@
 <script>
 export default {
     name: "espace2",
-    props: ["espaces"],
+    props: ["adherents"], 
+
+    data() {
+    return {
+      adherent: {},
+
+      urlImg: "http://localhost:3000/static/",
+
+    };
+  },
+
+  created: function() {
+    this.adherent = this.adherents[0];
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+    },
+
+  },
+
+  
 }
 </script>
 
@@ -96,6 +145,10 @@ export default {
     width: 100%;
     font-size: 20px;
     color: white;
+}
+
+.espace2 .menu .hautmenu .circle a{
+    color: white;
     cursor: pointer;
 }
 
@@ -124,5 +177,41 @@ export default {
 .espace2 .ensemble .logo img {
     width: 200px;
 }
+
+/* ----------------image profil------------------------ */
+
+.espace2 .menu .hautmenu .ensembleimageprofil .imageprofil {
+  border-radius: 500px;
+  height: 100%;
+  width: 100%;
+  max-height: 100px;
+  max-width: 100px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.espace2 .menu .hautmenu .ensembleimageprofil .centrer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.espace2 .menu .hautmenu .ensembleimageprofil .centrer .file-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.espace2 .menu .hautmenu .ensembleimageprofil .centrer img{
+  max-width: 200px !important;
+}
+
+
+
+
+
 
 </style>

@@ -42,6 +42,11 @@ const routes = [{
         component: trouverMaSalle
     },
     {
+        path: '/trouverMaSalle/:id',
+        name: 'trouverMaSalle',
+        component: trouverMaSalle
+    },
+    {
         path: '/detailsalle_de_sport/:id',
         name: 'detailsalle_de_sport',
         component: detailsalle_de_sport
@@ -62,22 +67,22 @@ const routes = [{
         component: abonnement
     },
     {
-        path: '/trouverPartenaire',
+        path: '/trouverPartenaire/:id',
         name: 'trouverPartenaire',
         component: trouverPartenaire
     },
     {
-        path: '/ajouterPoste',
+        path: '/ajouterPoste/:id',
         name: 'ajouterPoste',
         component: ajouterPoste
     },
     {
-        path: '/reponsePoste',
+        path: '/reponsePoste/:id',
         name: 'reponsePoste',
         component: reponsePoste
     },
     {
-        path: '/coursdomicile',
+        path: '/coursdomicile/:id',
         name: 'coursdomicile',
         component: coursdomicile
     },

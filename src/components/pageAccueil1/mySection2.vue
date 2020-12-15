@@ -7,7 +7,7 @@
     <h1 class="titre">Abonnement</h1>
     <div class="btn-prix">
     <label class="boutonSlider" for="checkbox">
-      <input type="checkbox" id="checkbox"  @change="changeprix" >
+      <input type="checkbox" id="checkbox"  @change="changeprix" @click="after">
       <span class="slider round"></span>
     </label>
     <p class="textAcces">Libre Accès</p>
@@ -48,7 +48,14 @@ export default {
 
    methods:{
        
-        changeprix: function(){ this.prixUn = false; this.prixDeux = true }
+        changeprix: function(){ this.prixUn = false; this.prixDeux = true },
+        after(){ if (this.prixDeux === true) {
+                      window.location.reload();
+
+        }
+
+        }
+
     },
   
     

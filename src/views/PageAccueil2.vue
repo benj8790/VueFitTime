@@ -1,8 +1,8 @@
 <template>
     <div>
-        <myNavbar2/>
+        <myNavbar2 :adherents="adherent"/>
         <myHeader/>
-        <mySection11/>
+        <mySection11 :annonces="annonces"/>
         <mySection22/>
 
         <mySetion3/>
@@ -23,6 +23,8 @@ export default {
     name:"pageAccueil2",
     data(){
         return{
+          adherent: "",
+      annonces: {},
         }
     },
 
@@ -44,12 +46,22 @@ export default {
         console.log(res);
         console.log(res.data.adherent);
         this.adherent = res.data.adherent
-        this.programme = this.adherent[0].Programme
        
       })
       .catch((err) => {
         alert(err);
       });
+
+          this.axios
+      .get("http://localhost:3000/annonce/findLimit")
+      .then((res) => {
+        console.log(res);
+        this.annonces = res.data.annonce;
+      })
+      .catch((err) => {
+        alert(err);
+      });
+      this.adherent = this.adherents[0];
   },
 
 

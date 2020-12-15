@@ -12,6 +12,7 @@
       v-on:espaceun="setdeux($event)"
       v-on:espacetrois="setsetdeux($event)"
       v-on:espacequatre="setsetsetdeux($event)"
+      :adherents="adherent"
     />
     <espace3
       v-show="espace3"

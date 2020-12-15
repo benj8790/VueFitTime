@@ -1,30 +1,41 @@
 <template>
   <div class="trouverpartenaire">
-      <h1>Trouver une annonce en fonction de votre salle</h1>
+<!--        <div class="ajout">
+           <a :href="`/ajouterPoste/${adherent.Id}`"> <button>Ajouter un poste</button> </a> 
+        </div> -->
       <div class="ensemble">
 
-          <div class="recherche" id="rech" >
-      <form  class="barre">
-        <div class="barreUn">
 
-      <input type="search" name="recherche" placeholder="Tape le nom de ta ville"  v-model="search" id="recherche" >
-        </div>
-      <div class="btnDeux"> 
-        
-        <button type="submit" class="btn-submit">Chercher</button>
-        </div>
-        </form>
-        <div class="ajout">
-           <a href="/ajouterPoste"> <button>Ajouter un poste</button> </a> 
-        </div>
-      </div>
-
+ 
       <div class="ensemblecarte">
 
-      <div class="carte" v-for="annonce in annonces" :key="annonce.id">
+      <div class="carte" v-for="annonce in annonces"  :key="annonce.id">
         <div class="cartecorps"> 
+ 
+          <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+          <div class="ensembleimageprofil">
+            <div class="centrer">
+              <div class="imageprofil">
+                  <img
+                    v-if="annonce.Adherent.Image !== ''"
+                    :src="urlImg + annonce.Adherent.Image"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
+                    src="../../../../Fit-Time/public/1fdb7bf257b90ba809da046b5f74afe9.jpg"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                
+              </div>
+            </div>
+          </div>
 
-          <h3>Olivia 29 ans</h3>
+          <div class="ensemblecontenu">
+
+          <h3> {{annonce.Adherent.Prenom}}</h3>
 
           <div class="premiereligne">
             <p><i class="fas fa-dumbbell"></i> Partenaire d'entrainement pour le <span> {{annonce.disponibilite}}</span> </p>
@@ -37,6 +48,7 @@
             <button>Répondre</button>
           </div>
 
+          </div>
         </div>
       </div>
       </div>
@@ -46,36 +58,47 @@
     </div>
 
 
-
-
-
-
-
-      <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-end">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
   </div>
 </template>
 
 <script>
 export default {
-    name: "annonce",
-    props: ["annonces"],
+    name: "trouverPartenaire",
+    props: ["annonces", "adherents"],
+    data() {
+    return {
+      adherent: {},
+      urlImg: "http://localhost:3000/static/",
+
+    };
+  },
 
 
-} 
+created (){
+if( this.annonces != ''){
+  this.axios.get("http://localhost:3000/annonce/FindAll")
+      .then(res => {
+          console.log(res.data);
+          this.annonces = res.data.annonce
+      })
+      .catch(err => {
+          alert(err);
+      })
+    this.adherent = this.adherents[0];
+      
+}
+}, 
 
 
+
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+    },
+
+  },
+
+      } 
 
 
 </script>
@@ -95,55 +118,7 @@ export default {
     background-size: cover;
 }
 
-.trouverpartenaire .ensemble .recherche {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.trouverpartenaire .ensemble .recherche form{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin: 50px 0px 30px 0px;
-}
-
-.trouverpartenaire .ensemble .recherche form .barreUn{
-    width: 50%;
-    margin-right: 15px;
-}
-
-.trouverpartenaire .ensemble .recherche form .barreUn input{
-    width: 100%;
-    height: 35px;
-    padding-left: 10px;
-    border: 1px solid;
-}
-
-.trouverpartenaire .ensemble .recherche form .btnDeux button{
-    font-family: "roboto";
-    color: white;
-    border: none;
-    height: 35px;
-    width: 100px;
-    background-color: #f7941d;
-    font-size: 20px;
-}
-
-.trouverpartenaire .ensemble .recherche .ajout{
-    width: 50%;
-    transform: translateX(-57px);
-    margin-bottom: 30px;
-}
-
-.trouverpartenaire .ensemble .recherche .ajout button{
-    font-family: "roboto";
-    color: white;
-    border: none;
-    height: 30px;
-    background-color: #f7941d;
-    padding: 5px;
-}
 
 /* ---------------------------------------- */
 
@@ -160,6 +135,8 @@ export default {
     width: 80%;
     background-color: white;
     margin: 20px 0px;
+    display: flex;
+    align-items: center;
 }
 
 .trouverpartenaire .carte .cartecorps .premiereligne{
@@ -175,6 +152,10 @@ export default {
     background-color: #f7941d;
     font-family: "roboto";
     padding: 2px;
+}
+
+.trouverpartenaire .carte .cartecorps h3{
+    margin: 10px;
 }
 
 .trouverpartenaire .carte .cartecorps .premiereligne p{
@@ -196,6 +177,36 @@ export default {
     padding: 2px 10px;
 }
 
+/* ----------------image profil------------------------ */
 
+.trouverpartenaire .ensemble .carte .cartecorps .ensembleimageprofil .imageprofil {
+  border-radius: 500px;
+  height: 100%;
+  width: 100%;
+  max-height: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.trouverpartenaire .ensemble .carte .cartecorps .ensembleimageprofil .centrer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.trouverpartenaire .ensemble .carte .cartecorps .ensembleimageprofil .centrer .file-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.trouverpartenaire .ensemble .carte .cartecorps .ensembleimageprofil .centrer img{
+  max-width: 300px !important;
+}
 
 </style>

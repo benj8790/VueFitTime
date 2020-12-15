@@ -2,7 +2,7 @@
   <div>
     <div class="navbar1">
       <div class="logo">
-        <a href="/pageAccueil2"
+        <a :href="`/pageAccueil2/${adherent.Id}`"
           ><img
             src="..//assets/Logo_Fit-Time__Avec_le_cercle.png"
             alt="mon logo"
@@ -26,26 +26,44 @@
             </li>
 
             <li>
-              <a class="dessus" href="/coursdomicile">Mon cours à domicile</a>
+              <a class="dessus" :href="`/coursdomicile/${adherent.Id}`">Mon cours à domicile</a>
             </li>
             <li>
-              <a class="dessus" href="/trouverpartenaire"
+              <a class="dessus" :href="`/trouverpartenaire/${adherent.Id}`"
                 >Trouver un partenaire
               </a>
             </li>
             <li>
-              <a class="dessus" href="/trouverMaSalle">Trouver ma Salle</a>
+              <a class="dessus" :href="`/trouverMaSalle/${adherent.Id}`">Trouver ma Salle</a>
             </li>
             <li>
               <a class="dessus" :href="`/espace/${adherent.Id}`">Mon espace </a>
             </li>
           </ul>
         </div>
-        <div class="btn-">
-          <a href="/login">
-            <i class="far fa-user" id="user1"></i>
-          </a>
-        </div>
+
+            <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+          <div class="ensembleimageprofil">
+            <div class="centrer">
+              <div class="imageprofil">
+                  <img
+                    v-if="adherent.Image !== ''"
+                    :src="urlImg + adherents[0].Image"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
+                    src="../../../Fit-Time/public/1fdb7bf257b90ba809da046b5f74afe9.jpg"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                
+              </div>
+
+             
+            </div>
+          </div>        
       </div>
     </div>
   </div>
@@ -54,15 +72,23 @@
 <script>
 import jwt from "vue-jwt-decode";
 export default {
-  name: "myNavbar",
+  name: "myNavbar2",
+  props: ["adherents"],
   data() {
     return {
       formations: {},
       adherent: {},
+      urlImg: "http://localhost:3000/static/",
+
     };
   },
-  created() {
+    
+    created() {
+      if(localStorage.getItem('token')){
     this.adherent = jwt.decode(localStorage.getItem("token"));
+      }else{
+        this.adherent = this.adherents;
+      }
   },
 };
 </script>
@@ -152,6 +178,40 @@ export default {
     margin: 0px 40px;
     cursor: pointer;
   }
+
+
+  
+/* ----------------image profil------------------------ */
+
+.navbar1 .ensembleimageprofil .imageprofil {
+  border-radius: 500px;
+  height: 100%;
+  width: 100%;
+  max-height: 50px;
+  max-width: 50px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.navbar1 .ensembleimageprofil .centrer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar1 .ensembleimageprofil .centrer .file-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar1 .ensembleimageprofil .centrer img{
+  max-width: 100px !important;
+}
 }
 
 @media (min-width: 320px) and (max-width: 1023.9px) {

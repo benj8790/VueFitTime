@@ -40,6 +40,8 @@
 <script>
 export default {
   name: "myNavbar",
+  props: ["adherents"],
+  
   data() {
     return {
       formations: {},

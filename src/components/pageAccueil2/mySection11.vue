@@ -6,10 +6,35 @@
 
       <div class="ensemblecarte">
 
-      <div class="carte" v-for="annonce in annonces" :key="annonce.id">
-        <div class="cartecorps"> 
+      <div class="carte" v-for="annonce in annonces.slice(0, 3)" :key="annonce.id">
 
-          <h3>Olivia 29 ans</h3>
+
+        
+        <div class="cartecorps"> 
+     <!-- le v-if= c'est une confition dans vue.js la si le message est différent de vide -->
+          <div class="ensembleimageprofil">
+            <div class="centrer">
+              <div class="imageprofil">
+                  <img
+                    v-if="annonce.Adherent.Image !== ''"
+                    :src="urlImg + annonce.Adherent.Image"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                  <img
+                    v-else
+                    src="../../../../Fit-Time/public/1fdb7bf257b90ba809da046b5f74afe9.jpg"
+                    class="avatar img-fluid"
+                    alt="avatar"
+                  />
+                
+              </div>
+            </div>
+          </div>
+
+                    <div class="ensemblecontenu">
+
+          <h3>{{annonce.Adherent.Prenom}}</h3>
 
           <div class="premiereligne">
             <p><i class="fas fa-dumbbell"></i> Partenaire d'entrainement pour le <span> {{annonce.disponibilite}}</span> </p>
@@ -21,12 +46,12 @@
             <p> {{annonce.Vos_Attente}} </p>
             <button>Répondre</button>
           </div>
-
+                    </div>
         </div>
       </div>
 
         <div class="btn">
-            <a href="/trouverpartenaire"> <button>Trouver un partenaire <br> d'entrainement</button> </a>
+            <a :href="`/trouverPartenaire/${id}`"> <button>Trouver un partenaire <br> d'entrainement</button> </a>
         </div>
 
 
@@ -42,25 +67,22 @@
 
 <script>
 export default {
-    name: "annonce",
+    name: "mySection11",
+      props: ["annonces"],
+
+
 
   data() {
     return {
-      annonces: {},
+      adherent: {},
+      urlImg: "http://localhost:3000/static/",
+                  id: this.$route.params.id
+
+
      
     };
   },
-  created() {
-    this.axios
-      .get("http://localhost:3000/annonce/findLimit")
-      .then((res) => {
-        console.log(res);
-        this.annonces = res.data.annonce;
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  },
+
 
 
   
@@ -111,6 +133,9 @@ export default {
     width: 80%;
     background-color: white;
     margin: 20px 0px;
+        display: flex;
+    align-items: center;
+
 }
 
 .mysection11 .carte .cartecorps .premiereligne{
@@ -147,6 +172,36 @@ export default {
     padding: 2px 10px;
 }
 
+/* ----------------image profil------------------------ */
 
+.mysection11 .ensemble .carte .cartecorps .ensembleimageprofil .imageprofil {
+  border-radius: 500px;
+  height: 100%;
+  width: 100%;
+  max-height: 150px;
+  max-width: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.mysection11 .ensemble .carte .cartecorps .ensembleimageprofil .centrer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mysection11 .ensemble .carte .cartecorps .ensembleimageprofil .centrer .file-upload {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mysection11 .ensemble .carte .cartecorps .ensembleimageprofil .centrer img{
+  max-width: 300px !important;
+}
 
 </style>

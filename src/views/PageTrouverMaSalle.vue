@@ -1,6 +1,7 @@
 <template>
     <div>
-        <myNavbar/>
+        <myNavbar v-if="myNavbar" :adherents="adherent"/>
+        <myNavbar2 v-else :adherents="adherent"/>
           <div class="trouverMaSalle">
 
          <h1>Cherche ta salle</h1>
@@ -28,18 +29,30 @@
 <script>
 
 import myNavbar from '../components/myNavbar'
+import myNavbar2 from '../components/myNavbar2'
 import lesSalles from '../components/chercheTaSalle/lesSalles'
 import myFooter from '../components/myFooter'
 
 export default {
-    name:"pageAccueil",
+  name:"pageAccueil",
 
 data(){
         return{
-            salle_de_sports:[],
-            search: ''
+          salle_de_sports:[],
+            search: '',
+            adherent:"",
+            myNavbar: true,
+            myNavbar2: false
         }
     },
+
+     components:{
+         myNavbar,
+         myNavbar2,
+         lesSalles,
+         myFooter,
+     },
+
    computed: {
     filteredList() {
         if(this.search != ''){
@@ -56,22 +69,34 @@ data(){
    
     
 created () {
-      this.axios.get("http://localhost:3000/salle_de_sport/FindAll")
+  this.axios.get("http://localhost:3000/salle_de_sport/FindAll")
       .then(res => {
-          console.log(res.data);
+        console.log(res.data);
           this.salle_de_sports = res.data.salle_de_sport
       })
       .catch(err => {
-          alert(err);
+        alert(err);
       })
+                this.axios
+      .get("http://localhost:3000/adherent/getById/" + this.$route.params.id)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.adherent);
+        this.adherent = res.data.adherent
+       
+      })
+      .catch((err) => {
+        alert(err);
+      });
+        if( localStorage.getItem("token")){
+          this.myNavbar = false;
+        } else  {
+         this.myNavbar = true;
+
+        } 
   },
 
 
-    components:{
-        myNavbar,
-        lesSalles,
-        myFooter,
-    }
 }
 </script>
 <style>
